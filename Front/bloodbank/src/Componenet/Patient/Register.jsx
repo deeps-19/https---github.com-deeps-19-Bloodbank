@@ -4,8 +4,10 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-
+import {Link, useNavigate} from 'react-router-dom';
+import axios from 'axios'
 const Register = () => {
+    const history =useNavigate();
     const [validated, setValidated] = useState(false);
     const [state ,setState]=useState({
         Name:"",
@@ -19,17 +21,31 @@ const Register = () => {
         Address:"",
         Mobile:""
     });
+    const addContact = async(data)=>{
+        const response = await axios.post("http://localhost:5000/api/creater" , data);
+        if(response.status ===200 )
+        {
+            alert("data add");
+        
+        }
+      };
+      
     const handelInput=(e)=>{
         let name = e.target.id;
         let value = e.target.value;
         console.log(name,value);
         setState({...state, [name]:value});
       };
-    const handleSubmit = (event) => {
+   
+      const handleSubmit = (event) => {
       const form = event.currentTarget;
       if (form.checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
+      }
+      else{
+        addContact(state);
+        history("/home"); 
       }
   
       setValidated(true);
@@ -109,7 +125,7 @@ const Register = () => {
      
         <Row>
 
-        <Form.Group as={Col} controlId="age">
+        <Form.Group as={Col} controlId="Age">
           <Form.Label>Age</Form.Label>
           <Form.Control 
             type="text" 
@@ -188,6 +204,7 @@ const Register = () => {
         />
       </Form.Group>
       <Button type="submit">Submit form</Button>
+      <Link to="/Login">Sign Up</Link>
     </Form>
     </div>
   )
