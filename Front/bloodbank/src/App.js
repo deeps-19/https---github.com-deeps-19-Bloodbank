@@ -15,6 +15,19 @@ import Dregister from './Componenet/Donor/Dregister';
 import Dmain from './Componenet/Donor/Dmain';
 import Donateblood from './Componenet/Donor/Donateblood';
 import Adashboard from './Componenet/Admin/Adashboard';
+import Amain from './Componenet/Admin/Amain';
+import Donordetails from './Componenet/Admin/Donordetails';
+import Update from './Componenet/Admin/Update';
+import Patientdetails from './Componenet/Admin/Patientdetails';
+import Updatepatient from './Componenet/Admin/Updatepatient';
+import Donation from './Componenet/Admin/Donation';
+import Requestblood from './Componenet/Admin/Requestblood';
+import REquesthistory from './Componenet/Admin/REquesthistory';
+import Bloodhistory from './Componenet/Admin/Bloodhistory';
+import Donorrequest from './Componenet/Donor/Donorrequest';
+import Drequesthistory from './Componenet/Donor/Drequesthistory';
+import Dhistory from './Componenet/Donor/Dhistory';
+import Updatereq from './Componenet/Admin/Updatereq';
 
 function App() {
   return (
@@ -32,7 +45,20 @@ function App() {
           <Route path="/DonnerRegister" element={<Dregister/>}/>
           <Route path="/DonnerDashboard" element={<Dmain/>}/>
           <Route path="/Donate" element={<Donateblood/>}/>
-          <Route path="/AdminDashboard" element={<Adashboard/>}/>
+          <Route path="/donor/donation-history" element={<Dhistory/>}/>
+
+          <Route path="/Donerrequest" element={<Donorrequest/>}/>
+          <Route path="/donor/request-history" element={<Drequesthistory/>}/>
+          <Route path="/AdminDashboard" element={<Amain/>}/>
+          <Route path="/admin-donor" element={<Donordetails/>}/>
+          <Route path="/update/donore/:id" element={<Update/>}/>
+          <Route path="/admin-patient" element={<Patientdetails/>}/>
+          <Route path="/update/patient" element={<Updatepatient/>}/>
+          <Route path="/admin-donation" element={<Donation/>}/>
+          <Route path="/admin-request" element={<Requestblood/>}/>
+          <Route path="/admin-request-history" element={<REquesthistory/>}/>
+          <Route path="/admin-blood" element={<Bloodhistory/>}/>
+          <Route path="/admin-req/:id" element={<Updatereq/>}/>
         </Routes>
     
       <Body/>

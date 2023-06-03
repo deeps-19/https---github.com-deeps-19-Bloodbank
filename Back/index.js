@@ -2,7 +2,9 @@ const express = require('express');
 const coonectdb= require('./utils/DBUtils')
 //  const userdb= require('./Server/Database/connectiondb')
 const userschem = require('./module/Patient.js');
-const userModel = require('./module/bloodreq');
+const userModel = require('./module/bloodreq.js');
+const donerModel = require('./module/Donerreg.js');
+const donate = require('./module/donateblood');
 let bcrypt=require('bcryptjs');
 // onst axios = require('axios')
 const app=express();
@@ -35,6 +37,7 @@ app.post('/api/creater',async(req,res)=>{
             Name:req.body.Name,
             Lname:req.body.Lname,
             Username:req.body.Username,
+            userRole:req.body.userRole,
             Password:changedPassword,
             Age:req.body.Age,
             Bloodgroup:req.body.Bloodgroup,
@@ -54,18 +57,18 @@ app.post('/api/creater',async(req,res)=>{
     }
 })
 
-// app.get('/api/uers',async (request,response)=>{
-//         try{
-//             //fetch data from database
-//             let data= await userschem.find();
+app.get('/api/uers',async (request,response)=>{
+        try{
+            //fetch data from database
+            let data= await userschem.find();
     
-//             response.json(data);
-//         }
-//         catch(error)
-//         {
-//             response.sendStatus(400).send(error);
-//         }
-//     })
+            response.json(data);
+        }
+        catch(error)
+        {
+            response.sendStatus(400).send(error);
+        }
+    })
 
     // app.get('/api/user/:id',async (request,response)=>{
     //     try{
@@ -154,19 +157,29 @@ app.delete("/api/delete/:id", async(req,res)=>{
         
         app.post('/user', async(req, res)=> {
             
-            let newuser =await userschem.findOne({Username:req.body.Username});
+            let data = await userschem.findById(req.params.id); 
             try{
-                if(newuser!= null){
-                    if(await bcrypt.compare(req.body.password, newuser.password )) {
-                       const token = jwt.sign({},jwt_token)
-                       console.log(token)
-                        res.send("login succesfully");
+                // if(data!= null){
+                //     res.json(data);
+                //     if(await bcrypt.compare(req.body.Password, data.Password )) {
+                //        const token = jwt.sign({},jwt_token)
+                //        console.log(token)
+                //         res.send("login succesfully");
+                //     }
+                //     else{
+                //         res.send("try again");
+                //     }
+                if(data!=null)
+                    {
+                        res.json(data);
                     }
-                    else{
-                        res.send("try again");
+                    else
+                    {
+                        res.status(404).send("data not found")
+        
                     }
-                } }
-            catch(error){ {message: error.message} }
+                } 
+            catch(error){  res.send(error)}
         })
 
 
@@ -194,7 +207,7 @@ app.post('/api/paientrequest',async(req,res)=>{
     }
 })
 
-app.get('/api/uers',async (request,response)=>{
+app.get('/api/user',async (request,response)=>{
     try{
         //fetch data from database
         let data= await userModel.find();
@@ -204,5 +217,231 @@ app.get('/api/uers',async (request,response)=>{
     catch(error)
     {
         response.sendStatus(400).send(error);
+    }
+})
+app.get('/api/req/:id', async (request,response)=>{
+    try{
+        let data = await userModel.findById(request.params.id); 
+        if(data!=null)
+            {
+                response.json(data);
+            }
+            else
+            {
+                response.status(404).send("data not found")
+
+            }
+    }
+    catch(error)
+    {
+        response.send(error)
+    }
+})
+
+app.post('/api/req/update/:id',async(req,res)=>{
+    try{
+        let data = await userModel.findByIdAndUpdate(req.params.id,req.body);
+        if(data != null)
+        {
+            res.json(data);
+        }
+        else
+        {
+            res.send("User not found")
+        }
+    }
+    catch(error){
+        res.send({message:error.massage})
+    }
+})
+
+app.delete("/bloodrq/delete/:id", async(req,res)=>{
+    try{
+        let user = await userModel.findByIdAndDelete(req.params.id);
+        if(user== null)
+        {
+            res.send ("Not fond & deleted")
+        }
+        else
+        {
+            res.json(user)
+        }
+    }
+    catch(error){
+        res.send(error)
+    }
+})
+
+
+
+//----------------------------------> Doner register<--------------------------------------------------
+app.post('/doner/creater',async(req,res)=>{
+   
+   
+    try{
+        let key = await bcrypt.genSalt();
+        let changedPassword= await bcrypt.hash(req.body.Password, key);
+       
+        let new_user = await donerModel({
+           
+            Name:req.body.Name,
+            Lname:req.body.Lname,
+            Username:req.body.Username,
+            userRole:req.body.userRole,
+            Password:changedPassword,
+            Age:req.body.Age,
+            Bloodgroup:req.body.Bloodgroup,
+            Address:req.body.Address,
+            Mobile:req.body.Mobile
+        });
+         
+        console.log(new_user)
+        new_user.save();
+        //  res.json(new_user);
+    }
+    catch(error)
+    {
+       res.sendStatus(error)
+    }
+})
+app.post('/Donner', async(req, res)=> {
+            
+    let data = await donerModel.findById(req.params.id); 
+    try{
+        // if(data!= null){
+        //     res.json(data);
+        //     if(await bcrypt.compare(req.body.Password, data.Password )) {
+        //        const token = jwt.sign({},jwt_token)
+        //        console.log(token)
+        //         res.send("login succesfully");
+        //     }
+        //     else{
+        //         res.send("try again");
+        //     }
+        if(data!=null)
+            {
+                res.json(data);
+            }
+            else
+            {
+                res.status(404).send("data not found")
+
+            }
+        } 
+    catch(error){  res.send(error)}
+})
+
+app.get('/donorhistory',async (request,response)=>{
+    try{
+        //fetch data from database
+        let data= await donerModel.find();
+
+        response.json(data);
+    }
+    catch(error)
+    {
+        response.sendStatus(400).send(error);
+    }
+})
+app.get('/Doner/:id', async (request,response)=>{
+    try{
+        let data = await donerModel.findById(request.params.id); 
+        if(data!=null)
+            {
+                response.json(data);
+            }
+            else
+            {
+                response.status(404).send("data not found")
+
+            }
+    }
+    catch(error)
+    {
+        response.send(error)
+    }
+})
+
+app.post('/Donor/update/:id',async(req,res)=>{
+    try{
+        let data = await userModel.findByIdAndUpdate(req.params.id,req.body);
+        if(data != null)
+        {
+            res.json(data);
+        }
+        else
+        {
+            res.send("User not found")
+        }
+    }
+    catch(error){
+        res.send({message:error.massage})
+    }
+})
+app.delete("/doner/delete/:id", async(req,res)=>{
+    try{
+        let user = await donerModel.findByIdAndDelete(req.params.id);
+        if(user== null)
+        {
+            res.send ("Not fond & deleted")
+        }
+        else
+        {
+            res.json(user)
+        }
+    }
+    catch(error){
+        res.send(error)
+    }
+})
+
+
+
+//----------------------------------> Doner request<--------------------------------------------------
+app.post('/doner/donate',async(req,res)=>{
+   
+   
+    try{
+      
+       
+        let new_user = await donate(req.body);
+         
+        console.log(new_user)
+        new_user.save();
+        //  res.json(new_user);
+    }
+    catch(error)
+    {
+       res.sendStatus(error)
+    }
+})
+
+app.get('/Donnate/history',async (request,response)=>{
+    try{
+        //fetch data from database
+        let data= await donate.find();
+
+        response.json(data);
+    }
+    catch(error)
+    {
+        response.sendStatus(400).send(error);
+    }
+})
+
+app.delete("/Donner/delete/:id", async(req,res)=>{
+    try{
+        let user = await userschem.findByIdAndDelete(req.params.id);
+        if(user== null)
+        {
+            res.send ("Not fond & deleted")
+        }
+        else
+        {
+            res.json(user)
+        }
+    }
+    catch(error){
+        res.send(error)
     }
 })

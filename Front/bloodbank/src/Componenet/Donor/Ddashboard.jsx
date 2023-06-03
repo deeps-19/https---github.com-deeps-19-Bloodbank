@@ -1,6 +1,21 @@
-import React from 'react'
+import React,{ useState, useEffect} from 'react';
+import {Link , useNavigate} from "react-router-dom";
+
+import axios from "axios";
 import "./Donor.css"
 const Ddashboard = () => {
+  const [data, setdata]= useState([]);
+  useEffect(()=>{
+      getUsers();
+  },[])
+  
+  const getUsers = async ()=>{
+      const response = await axios.get("http://localhost:5000/api/user");
+      if(response.status ===200 )
+      {
+          setdata(response.data);
+      }
+  };
   return (
     <div class="container">
 
@@ -16,6 +31,7 @@ const Ddashboard = () => {
               <div>
                 Request Made <br/>
                   {/* {{requestmade}} */}
+                  {data.length}
               </div>                            
           </div>
         </div>

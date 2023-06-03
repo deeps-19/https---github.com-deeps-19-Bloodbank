@@ -15,15 +15,15 @@ const DLogin = () => {
        
     });
     const addContact = async(data)=>{
-        const response = await axios.post("http://localhost:5000/user" , data);
-        if(response.status ===200 )
-    {
+    //     const response = await axios.post("http://localhost:5000/Donner",data);
+    //     if(response.status ===200 )
+    // {
         alert("User Login Successfully");
-        history('/dashboard')
-    }
-    else{
-      alert("error")
-    }
+        history('/DonnerDashboard')
+    // }
+    // else{
+    //   alert("error")
+    // }
       };
       
     const handelInput=(e)=>{

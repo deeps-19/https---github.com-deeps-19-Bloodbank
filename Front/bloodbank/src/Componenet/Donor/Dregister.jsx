@@ -14,6 +14,7 @@ const Dregister = () => {
         Name:"",
         Lname:"",
         Username:"",
+        userRole:"Donner",
         Password:"",
         Age:"",
         Bloodgroup:"",
@@ -21,11 +22,11 @@ const Dregister = () => {
         Mobile:""
     });
     const addContact = async(data)=>{
-        const response = await axios.post("http://localhost:5000/api/creater" , data);
+        const response = await axios.post("http://localhost:5000/doner/creater" , data);
         if(response.status ===200 )
         {
             alert("data add");
-        
+            history("/home"); 
         }
       };
       
@@ -44,7 +45,7 @@ const Dregister = () => {
       }
       else{
         addContact(state);
-        history("/home"); 
+       
       }
   
       setValidated(true);
@@ -101,7 +102,16 @@ const Dregister = () => {
         </Form.Control.Feedback>
       </InputGroup>
     </Form.Group>
-
+    <Form.Control
+          type="text"
+          placeholder="Username"
+          aria-describedby="inputGroupPrepend"
+          required
+          value={state.userRole}
+          onChange={handelInput}
+          hidden
+           
+          />
   
     <Form.Group as={Col} controlId="Password">
       <Form.Label>Password</Form.Label>

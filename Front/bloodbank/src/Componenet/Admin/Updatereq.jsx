@@ -1,12 +1,11 @@
 
+
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
-import React, { useState } from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState , useEffect } from 'react';
+import {Link, useNavigate,useParams} from 'react-router-dom';
 import axios from 'axios'
-import './main.css'
-import Main from './Main';
-const Makerequest = () => {
+const Updatereq = () => {
     const history =useNavigate();
     // useEffect(()=>{
     //     if(id)
@@ -28,10 +27,31 @@ const Makerequest = () => {
         Age:"",
         Reason:"",
         Bloodgroup:"",
-        Unit:""    
+        Unit:"",
+        Status:"" 
+
     });
+    const{id} =useParams();
+    // const { Name, email, gender, status } = state;
+    
+    useEffect(()=>{
+      if(id)
+      {
+  
+        loadUserDetails(id);
+      }
+      else{
+        alert("no idpass")
+      }
+    },[id]);
+    const loadUserDetails= async (id)=>{
+        const response = await axios.get(`http://localhost:5000/api/req/${id}`);
+        setState(response.data)
+        console.log(response.data)
+      }
     const addContact = async(data)=>{
-        const response = await axios.post("http://localhost:5000/api/paientrequest" , data);
+       
+        const response = await axios.post(`http://localhost:5000/api/req/update/${id}` , data);
         if(response.status ===200 )
         {
             alert("data add");
@@ -62,7 +82,7 @@ const Makerequest = () => {
     };
   return (
       <div>
-        <Main/>
+        {/* <Main/> */}
       <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
     <div class="wrapper wrapper--w790">
       
@@ -138,7 +158,7 @@ const Makerequest = () => {
                         <div class="value">
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
-                                    <select name="bloodgroup" value={state.Bloodgroup} id='Bloodgroup' onChange={handelInput} >
+                                <select name="bloodgroup" value={state.Bloodgroup} id='Bloodgroup' onChange={handelInput} >
                                         <option disabled="disabled" selected="selected">Choose option</option>
                                         <option>O+</option>
                                         <option>O-</option>
@@ -170,6 +190,21 @@ const Makerequest = () => {
                                  />                            </div>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="name">Status</div>
+                        <div class="value">
+                            <div class="input-group">
+                            <Form.Control
+                                 required
+                                 id="Status"
+                                    type="text"
+                                placeholder="Unit"
+                                 value={state.Status}
+                                 onChange={handelInput}
+            
+                                 />                            </div>
+                        </div>
+                    </div>
 
       
 
@@ -192,4 +227,4 @@ const Makerequest = () => {
   )
 }
 
-export default Makerequest
+export default Updatereq

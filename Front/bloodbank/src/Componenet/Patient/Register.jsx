@@ -13,7 +13,9 @@ const Register = () => {
         Name:"",
         Lname:"",
         Username:"",
+        userRole:"Patient",
         Password:"",
+
         Age:"",
         Bloodgroup:"",
         Deasise:"",
@@ -87,7 +89,7 @@ const Register = () => {
         <Form.Group as={Col} controlId="Username">
           <Form.Label>Username</Form.Label>
           <InputGroup hasValidation>
-            <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+            <InputGroup.Text id="Username">B</InputGroup.Text>
             <Form.Control
               type="text"
               placeholder="Username"
@@ -102,6 +104,17 @@ const Register = () => {
             </Form.Control.Feedback>
           </InputGroup>
         </Form.Group>
+        <Form.Control
+              type="text"
+              placeholder="Username"
+              aria-describedby="inputGroupPrepend"
+              required
+              value={state.userRole}
+              onChange={handelInput}
+              id="userRole"
+              hidden
+               
+              />
     
       
         <Form.Group as={Col} controlId="Password">

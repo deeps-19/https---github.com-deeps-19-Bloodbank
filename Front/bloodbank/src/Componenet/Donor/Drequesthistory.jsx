@@ -1,17 +1,18 @@
+
+import Dmain from './Dmain';
 import React,{ useState, useEffect} from 'react';
 import {Link , useNavigate} from "react-router-dom";
 
 import axios from "axios";
-import Main from './Main';
 
-const Myreque = () => {
+const Drequesthistory = () => {
     const [data, setdata]= useState([]);
     useEffect(()=>{
         getUsers();
     },[])
     
     const getUsers = async ()=>{
-        const response = await axios.get("http://localhost:5000/api/user");
+        const response = await axios.get("http://localhost:5000/api/uers");
         if(response.status ===200 )
         {
             setdata(response.data);
@@ -19,7 +20,7 @@ const Myreque = () => {
     };
   return (
     <div>
-        <Main/>
+        <Dmain/>
     <div class="container">
     <h4 class="text-center">My Blood Request</h4><br/>
     <table class="table table-light table-hover table-bordered table-striped">
@@ -70,4 +71,4 @@ const Myreque = () => {
   )
 }
 
-export default Myreque
+export default Drequesthistory

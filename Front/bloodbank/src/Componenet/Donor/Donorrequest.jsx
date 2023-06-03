@@ -4,9 +4,9 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import React, { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios'
-import './main.css'
-import Main from './Main';
-const Makerequest = () => {
+import '../Patient/main.css'
+import Dmain from './Dmain';
+const Donorrequest = () => {
     const history =useNavigate();
     // useEffect(()=>{
     //     if(id)
@@ -35,7 +35,7 @@ const Makerequest = () => {
         if(response.status ===200 )
         {
             alert("data add");
-            history('/dashboard')
+            history('/DonnerDashboard')
         
         }
       };
@@ -62,7 +62,7 @@ const Makerequest = () => {
     };
   return (
       <div>
-        <Main/>
+        <Dmain/>
       <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
     <div class="wrapper wrapper--w790">
       
@@ -138,7 +138,7 @@ const Makerequest = () => {
                         <div class="value">
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
-                                    <select name="bloodgroup" value={state.Bloodgroup} id='Bloodgroup' onChange={handelInput} >
+                                    <select name="bloodgroup">
                                         <option disabled="disabled" selected="selected">Choose option</option>
                                         <option>O+</option>
                                         <option>O-</option>
@@ -192,4 +192,4 @@ const Makerequest = () => {
   )
 }
 
-export default Makerequest
+export default Donorrequest

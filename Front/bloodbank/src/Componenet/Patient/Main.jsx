@@ -6,9 +6,9 @@ import Slidebar from './Slidebar'
 const Main = () => {
   return (
     <>
+      <Slidebar/>
        <Pdashboard/> 
       {/* <Navbar/> */}
-      <Slidebar/>
     </>
   )
 }

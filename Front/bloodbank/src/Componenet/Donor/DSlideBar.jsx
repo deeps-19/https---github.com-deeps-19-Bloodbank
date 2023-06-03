@@ -1,16 +1,17 @@
 import React from 'react'
 import "./Donor.css"
+import { Link } from 'react-router-dom'
 const DSlideBar = () => {
   return (
     <div class="wrapper">
     <div class="sidebar">
         
         <ul>
-            <li><a style={{TextDecoration:"none"}} href="/"><i class="fas fa-home"></i>Home</a></li>
-            <li><a style={{TextDecoration:"none"}} href="/Donate"><i class="fas fa-hand-holding-medical"></i>Donate Blood</a></li>
-            <li><a style={{TextDecoration:"none"}} href="/donor/donation-history"><i class="fas fa-history"></i>Donation History</a></li>
-            <li><a style={{TextDecoration:"none"}} href="/request"><i class="fas fa-sync-alt"></i>Blood Request</a></li>
-            <li><a style={{TextDecoration:"none"}} href="/donor/request-history"><i class="fas fa-history"></i>Request History</a></li>
+            <li><Link style={{TextDecoration:"none"}} to="/"><i class="fas fa-home"></i>Home</Link></li>
+            <li><Link style={{TextDecoration:"none"}} to="/Donate"><i class="fas fa-hand-holding-medical"></i>Donate Blood</Link></li>
+            <li><Link style={{TextDecoration:"none"}} to="/donor/donation-history"><i class="fas fa-history"></i>Donation History</Link></li>
+            <li><Link style={{TextDecoration:"none"}} to="/Donerrequest"><i class="fas fa-sync-alt"></i>Blood Request</Link></li>
+            <li><Link style={{TextDecoration:"none"}} to="/donor/request-history"><i class="fas fa-history"></i>Request History</Link></li>
 
         
         </ul> 

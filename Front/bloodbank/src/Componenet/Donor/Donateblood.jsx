@@ -6,22 +6,19 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
 import {Link, useNavigate} from 'react-router-dom';
 import axios from 'axios'
+import Dmain from './Dmain';
 
 const Donateblood = () => {
     const history =useNavigate();
     const [validated, setValidated] = useState(false);
     const [state ,setState]=useState({
-        Name:"",
-        Lname:"",
-        Username:"",
-        Password:"",
-        Age:"",
-        Bloodgroup:"",
-        Address:"",
-        Mobile:""
+       Bloodgroup:"",
+        Unit:"",
+        Disease :"",
+        Age :""
     });
     const addContact = async(data)=>{
-        const response = await axios.post("http://localhost:5000/api/creater" , data);
+        const response = await axios.post("http://localhost:5000/doner/donate",data);
         if(response.status ===200 )
         {
             alert("data add");
@@ -50,6 +47,9 @@ const Donateblood = () => {
       setValidated(true);
     };
   return (
+    <div>
+        <Dmain/>
+    
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
     <div class="wrapper wrapper--w790">
       
@@ -65,7 +65,7 @@ const Donateblood = () => {
                         <div class="value">
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
-                                    <select name="bloodgroup">
+                                    <select name="bloodgroup" value={state.Bloodgroup} onChange={handelInput} id="Bloodgroup">
                                         <option disabled="disabled" selected="selected">Choose option</option>
                                         <option>O+</option>
                                         <option>O-</option>
@@ -86,7 +86,7 @@ const Donateblood = () => {
                         <div class="name">Unit (in ml)</div>
                         <div class="value">
                             <div class="input-group">
-                            <Form.Control type="text" placeholder="Address" required value={state.Address} onChange={handelInput}/>
+                            <Form.Control type="text" placeholder="Unit" required value={state.Unit} onChange={handelInput} id="Unit"/>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@ const Donateblood = () => {
                         <div class="name">Disease (if any)</div>
                         <div class="value">
                             <div class="input-group">
-                            <Form.Control type="text" placeholder="Address" required value={state.Address} onChange={handelInput}/>
+                            <Form.Control type="text" placeholder="Disease " required value={state.Disease } id="Disease" onChange={handelInput}/>
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ const Donateblood = () => {
                         <div class="name">Age</div>
                         <div class="value">
                             <div class="input-group">
-                            <Form.Control type="text" placeholder="Address" required value={state.Address} onChange={handelInput}/>
+                            <Form.Control type="text" placeholder="Age" required value={state.Age} id="Age" onChange={handelInput}/>
                             </div>
                         </div>
                     </div>
@@ -123,6 +123,7 @@ const Donateblood = () => {
             </div>
         </div>
     </div>
+</div>
 </div>
   )
 }

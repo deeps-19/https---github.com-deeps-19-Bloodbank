@@ -1,5 +1,6 @@
 import React from 'react'
 import "./dashboard.css"
+import { Link } from 'react-router-dom'
 const Slidebar = () => {
     return (
      
@@ -7,9 +8,9 @@ const Slidebar = () => {
                 <div class="sidebar">
 
                     <ul>
-                        <li><a style={{textDecoration:"none"}} href="/"><i class="fas fa-home"></i>Home</a></li>
-                        <li><a style={{textDecoration:"none"}} href="/patient/request"><i class="fas fa-sync-alt"></i>Make Request</a></li>
-                        <li><a style={{textDecoration:"none"}} href="/patient/myrequest"><i class="fas fa-history"></i>Request History</a></li>
+                        <li><Link style={{textDecoration:"none"}} to="/"><i class="fas fa-home"></i>Home</Link></li>
+                        <li><Link style={{textDecoration:"none"}} to="/request"><i class="fas fa-sync-alt"></i>Make Request</Link></li>
+                        <li><Link style={{textDecoration:"none"}} to="/patient/myrequest"><i class="fas fa-history"></i>Request History</Link></li>
 
                     </ul>
 

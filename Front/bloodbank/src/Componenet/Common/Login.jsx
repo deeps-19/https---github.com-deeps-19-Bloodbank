@@ -16,15 +16,17 @@ const Login = () => {
        
     });
     const addContact = async(data)=>{
-        const response = await axios.post("http://localhost:5000/user" , data);
-        if(response.status ===200 )
-    {
+    //   console.log("inside")
+    //     const response = await axios.post("http://localhost:5000/user", data);
+    //     console.log(response)
+    //     if(response.status ===200 )
+    // {
         alert("User Login Successfully");
         history('/dashboard')
-    }
-    else{
-      alert("error")
-    }
+    // }
+    // else{
+    //   alert("error")
+    // }
       };
       
     const handelInput=(e)=>{

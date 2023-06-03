@@ -1,6 +1,22 @@
-import React from 'react'
+import React,{ useState, useEffect} from 'react';
+import {Link , useNavigate} from "react-router-dom";
+
+import axios from "axios";
 import './p.css'
 const Pdashboard = () => {
+  
+  const [data, setdata]= useState([]);
+  useEffect(()=>{
+      getUsers();
+  },[])
+  
+  const getUsers = async ()=>{
+      const response = await axios.get("http://localhost:5000/api/user");
+      if(response.status ===200 )
+      {
+          setdata(response.data);
+      }
+  };
   return (
    
 <div class="container">
@@ -13,6 +29,7 @@ const Pdashboard = () => {
                 </div><br/>
             <div>
             Request Made <br/>
+            {data.length}
               {/* {{requestmade}} */}
           </div>                            
       </div>
