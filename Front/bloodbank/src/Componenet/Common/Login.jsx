@@ -11,22 +11,22 @@ const Login = () => {
     const history =useNavigate();
     const [validated, setValidated] = useState(false);
     const [state ,setState]=useState({
-         Username:"",
+      Username:"",
         Password:"",
        
     });
     const addContact = async(data)=>{
-    //   console.log("inside")
-    //     const response = await axios.post("http://localhost:5000/user", data);
-    //     console.log(response)
-    //     if(response.status ===200 )
-    // {
+      console.log(data);
+        const response = await axios.post("http://localhost:5000/userlogin", data);
+        console.log(response)
+        if(response.status ===201 )
+    {
         alert("User Login Successfully");
-        history('/dashboard')
-    // }
-    // else{
-    //   alert("error")
-    // }
+        // history('/dashboard')
+    }
+    else{
+      alert("error")
+    }
       };
       
     const handelInput=(e)=>{

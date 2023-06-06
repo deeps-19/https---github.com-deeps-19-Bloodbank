@@ -1,30 +1,70 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link, useNavigate,useParams} from 'react-router-dom';
 import axios from 'axios'
+import Anav from './Anav';
+import Aslide from './Aslide';
 
 const Updatepatient = () => {
     const history =useNavigate();
+    // useEffect(()=>{
+    //     if(id)
+    //     {
+    
+    //       loadUserDetails(id);
+    //     }
+    //   },[id]);
+    
+       
+    //   const loadUserDetails= async (id)=>{
+    //     const response = await axios.get(`http://localhost:5000/view/${id}`);
+    //     setState(response.data)
+    //     console.log(response.data)
+    //   }
     const [validated, setValidated] = useState(false);
     const [state ,setState]=useState({
         Name:"",
         Lname:"",
         Username:"",
+        userRole:"Patient",
         Password:"",
         Age:"",
         Bloodgroup:"",
+        Deasise:"",
+        Doctor:"",
         Address:"",
-        Mobile:""
+        Mobile:"" 
+
     });
+    const{id} =useParams();
+    // const { Name, email, gender, status } = state;
+    
+    useEffect(()=>{
+      if(id)
+      {
+  
+        loadUserDetails(id);
+      }
+      else{
+        alert("no idpass")
+      }
+    },[id]);
+    const loadUserDetails= async (id)=>{
+        const response = await axios.get(`http://localhost:5000/view/${id}`);
+        setState(response.data)
+        console.log(response.data)
+      }
     const addContact = async(data)=>{
-        const response = await axios.post("http://localhost:5000/api/creater" , data);
+       
+        const response = await axios.post(`http://localhost:5000/api/update/${id}` , data);
         if(response.status ===200 )
         {
             alert("data add");
+            history('/AdminDashboard')
         
         }
       };
@@ -44,13 +84,15 @@ const Updatepatient = () => {
       }
       else{
         addContact(state);
-        history("/home"); 
+         
       }
   
       setValidated(true);
     };
   return (
     <div>
+        <Anav/>
+        <Aslide/>
       <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
     <div class="wrapper wrapper--w790">
       
@@ -59,7 +101,7 @@ const Updatepatient = () => {
                 <h2 class="title">Update Patient</h2>
             </div>
             <div class="card-body">
-                <form method="POST" autocomplete="off" enctype="multipart/form-data">
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     
 
                     <div class="form-row">
@@ -68,9 +110,10 @@ const Updatepatient = () => {
                             <div class="input-group">
                             <Form.Control
                                     required
+                                    id="Username"
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Name}
                                     onChange={handelInput}
 
                                 />       
@@ -85,8 +128,9 @@ const Updatepatient = () => {
                             <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Lname}
+                                    id='Lname'
                                     onChange={handelInput}
 
                                 />       
@@ -101,7 +145,8 @@ const Updatepatient = () => {
                             <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
+                                    placeholder=""
+                                    id="Username"
                                     value={state.Username}
                                     onChange={handelInput}
 
@@ -117,8 +162,9 @@ const Updatepatient = () => {
                             <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Password}
+                                    id="Password"
                                     onChange={handelInput}
 
                                 />       
@@ -133,11 +179,13 @@ const Updatepatient = () => {
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Age}
+                                    id="Age"
                                     onChange={handelInput}
 
-                                />                         </div>
+                                />                        
+                             </div>
                         </div>
                     </div>
 
@@ -148,7 +196,7 @@ const Updatepatient = () => {
                         <div class="value">
                             <div class="input-group">
                                 <div class="rs-select2 js-select-simple select--no-search">
-                                    <select name="bloodgroup">
+                                    <select name="bloodgroup" value={state.Bloodgroup} id='Bloodgroup' onChange={handelInput}>
                                         <option disabled="disabled" selected="selected">Choose option</option>
                                         <option>O+</option>
                                         <option>O-</option>
@@ -172,8 +220,9 @@ const Updatepatient = () => {
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Deasise}
+                                    id="Deasise"
                                     onChange={handelInput}
 
                                 />
@@ -182,14 +231,15 @@ const Updatepatient = () => {
                     </div>
 
                     <div class="form-row">
-                        <div class="name">Doctor</div>
+                        <div class="name">Doctor Name</div>
                         <div class="value">
                             <div class="input-group">
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    id="Doctor"
+                                    value={state.Doctor}
                                     onChange={handelInput}
 
                                 />
@@ -204,8 +254,9 @@ const Updatepatient = () => {
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Address}
+                                    id="Address"
                                     onChange={handelInput}
 
                                 />
@@ -220,36 +271,23 @@ const Updatepatient = () => {
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
+                                    placeholder=""
+                                    value={state.Mobile}
+                                    id="Mobile"
                                     onChange={handelInput}
 
                                 />                            </div>
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="name">Profile Pic</div>
-                        <div class="value">
-                            <div class="input-group">
-                                <Form.Control
-                                    required
-                                    type="text"
-                                    placeholder="UserName"
-                                    value={state.Username}
-                                    onChange={handelInput}
-
-                                />  
-                            </div>
-                        </div>
-                    </div>
+                   
 
 
 
                     <div>
                         <button class="btn btn--radius-2 btn-danger" type="submit">Update</button>
                     </div>
-                </form>
+                </Form>
                 <br/>
                 
 

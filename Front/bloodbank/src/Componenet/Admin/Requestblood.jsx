@@ -2,6 +2,8 @@ import React,{ useState, useEffect} from 'react';
 import {Link , useNavigate} from "react-router-dom";
 
 import axios from "axios";
+import Anav from './Anav';
+import Aslide from './Aslide';
 const Requestblood = () => {
     const [data, setdata]= useState([]);
     useEffect(()=>{
@@ -15,9 +17,23 @@ const Requestblood = () => {
             setdata(response.data);
         }
     };
+    const onDeleteUser= async(id)=>{
+        if(window.confirm("Are you sure"))
+        {
+            const response = await axios.delete(`http://localhost:5000/bloodrq/delete/${id}`);
+            getUsers();
+            if(response.status ===200 )
+            {
+                    alert("Data deleted successfully");
+        }
+        }
+
+    }
   return (
-    
-        <div class="container">
+    <div>
+        <Anav/>
+        <Aslide/>
+        <div class="containerd">
  {/* {% if requests %} */}
     <h4 class="text-center">Blood Requested</h4><br/>
     {/* {% if message %} */}
@@ -54,7 +70,7 @@ const Requestblood = () => {
                 <td class="text-right">
                    
                     <button class="btn btn-primary badge-pill" style={{width: "100px"}}><Link  style={{TextDecoration: "none",color: "white"}} to={`/admin-req/${item._id}`}>Approve</Link> </button>
-                    <button class="btn btn-danger badge-pill" style={{width: "80px"}}><a  style={{TextDecoration: "none", color: "white"}} href="{% url 'update-reject-status' t.id  %}">Reject</a> </button>
+                    <button class="btn btn-danger badge-pill" style={{width: "80px"}}  onClick={()=>onDeleteUser(item._id)}>Reject </button>
                     
                 </td>
             </tr>
@@ -72,7 +88,7 @@ const Requestblood = () => {
 
 </div>
       
-    
+</div>    
   )
 }
 

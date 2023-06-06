@@ -12,8 +12,9 @@ const bodyparser =require('body-parser');
 // const path = require('path');
 const cors = require('cors');
 // const { log } = require('console');
-// const jwt = require('jsonwebtoken');
-// const jwt_token= "sdgjggefyt877gwvhgdhuags{}[]]dhuiyreyiuhfjsklAf"
+const jwt = require('jsonwebtoken');
+const DonerModel = require('./module/Donerreg.js');
+const jwt_token= "sdgjggefyt877gwvhgdhuags{}[]]dhuiyreyiuhfjsklAf"
 app.use(cors({
     origin :"*"
     
@@ -139,7 +140,33 @@ app.delete("/api/delete/:id", async(req,res)=>{
 
 
 
-
+    app.post('/userlogin', async(req, res)=> {
+           console.log("inside db") 
+        let newuser =await userschem.findOne({Username:req.body.Username});
+        console.log(newuser)
+        try{
+            if(newuser!= null){
+                console.log("inside try")
+                if(await bcrypt.compare(req.body.Password, newuser.Password )) {
+                    console.log("compare done")
+                    const token=jwt.sign({},jwt_token)
+                    console.log(token)
+                    if(res.status(200))
+                    {
+                        console.log("status")
+                        res.send("login succesfully");
+                    }
+                    else{
+                    console.log("inseide else")
+                    }
+                //   
+                }
+                else{
+                    res.send("try again");
+                }
+            } }
+        catch(error){ {message: error.message} }
+    })
 
 
 
@@ -306,29 +333,29 @@ app.post('/doner/creater',async(req,res)=>{
 })
 app.post('/Donner', async(req, res)=> {
             
-    let data = await donerModel.findById(req.params.id); 
+    let newuser =await DonerModel.findOne({Username:req.body.Username});
     try{
-        // if(data!= null){
-        //     res.json(data);
-        //     if(await bcrypt.compare(req.body.Password, data.Password )) {
-        //        const token = jwt.sign({},jwt_token)
-        //        console.log(token)
-        //         res.send("login succesfully");
-        //     }
-        //     else{
-        //         res.send("try again");
-        //     }
-        if(data!=null)
-            {
-                res.json(data);
+        if(newuser!= null){
+            console.log("inside try")
+            if(await bcrypt.compare(req.body.Password, newuser.Password )) {
+                console.log("compare done")
+                const token=jwt.sign({},jwt_token)
+                console.log(token)
+                if(res.status(200))
+                {
+                    console.log("status")
+                    res.send("login succesfully");
+                }
+                else{
+                console.log("inseide else")
+                }
+            //   
             }
-            else
-            {
-                res.status(404).send("data not found")
-
+            else{
+                res.send("try again");
             }
-        } 
-    catch(error){  res.send(error)}
+        } }
+    catch(error){ {message: error.message} }
 })
 
 app.get('/donorhistory',async (request,response)=>{
@@ -362,9 +389,9 @@ app.get('/Doner/:id', async (request,response)=>{
     }
 })
 
-app.post('/Donor/update/:id',async(req,res)=>{
+app.post('/update/donore/:id',async(req,res)=>{
     try{
-        let data = await userModel.findByIdAndUpdate(req.params.id,req.body);
+        let data = await donerModel.findByIdAndUpdate(req.params.id,req.body);
         if(data != null)
         {
             res.json(data);

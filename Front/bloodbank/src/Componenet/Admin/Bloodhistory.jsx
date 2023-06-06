@@ -1,8 +1,12 @@
 import React from 'react'
+import Anav from './Anav'
+import Aslide from './Aslide'
 
 const Bloodhistory = () => {
   return (
     <div>
+      <Anav/>
+      <Aslide/>
       <div class="container">
 
 <div class="row">

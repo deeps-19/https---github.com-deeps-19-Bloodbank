@@ -3,6 +3,7 @@ import {Link , useNavigate} from "react-router-dom";
 
 import axios from "axios";
 import Aslide from './Aslide';
+import Anav from './Anav';
 
 const Donation = () => {
     const [data, setdata]= useState([]);
@@ -31,8 +32,9 @@ const Donation = () => {
     };
   return (
     <div>
+        <Anav/>
         <Aslide/>
-      <div class="container">
+      <div class="containerd">
     <h4 class="text-center">BLOOD DONATION DETAILS</h4><br/>
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">

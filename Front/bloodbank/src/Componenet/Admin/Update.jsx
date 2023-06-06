@@ -9,6 +9,7 @@ import { useNavigate, useLocation, useParams } from 'react-router-dom';
 import axios from 'axios'
 import Amain from './Amain';
 import Aslide from './Aslide';
+import Anav from './Anav';
 
 const Update = () => {
     const{id} =useParams();
@@ -43,10 +44,11 @@ const Update = () => {
         Mobile:""
     });
     const addContact = async(data)=>{
-        const response = await axios.post(`http://localhost:5000/Donor/update/${id}`,data);
+        const response = await axios.post(`http://localhost:5000/update/donore/${id}` , data);
         if(response.status ===200 )
         {
             alert("Data Updated");
+            
         }
       };
       
@@ -66,13 +68,14 @@ const Update = () => {
       else{
         addContact(state);
         console.log(state)
-        history("/home"); 
+        history("/AdminDashboard");
       }
   
       setValidated(true);
     };
   return (
     <div>
+        <Anav/>
         <Aslide/>
     
     <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
@@ -83,7 +86,7 @@ const Update = () => {
                 <h2 class="title">Update Donor</h2>
             </div>
             <div class="card-body">
-                <form method="POST" autocomplete="off" enctype="multipart/form-data">
+            <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     {/* {% csrf_token %} */}
 
                     <div class="form-row">
@@ -111,8 +114,8 @@ const Update = () => {
                                     required
                                     type="text"
                                     placeholder="Lastname"
-                                    value={state.Lastname}
-                                    id="Lastname"
+                                    value={state.Lname}
+                                    id="Lname"
                                     onChange={handelInput}
 
                                 />                            
@@ -232,7 +235,7 @@ const Update = () => {
                     <div>
                         <button class="btn btn--radius-2 btn-danger" type="submit">Update</button>
                     </div>
-                </form>
+                </Form>
                 <br/>
 
 

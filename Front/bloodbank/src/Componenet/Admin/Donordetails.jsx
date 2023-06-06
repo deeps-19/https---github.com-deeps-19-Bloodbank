@@ -4,6 +4,7 @@ import {Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 import Amain from './Amain';
 import Aslide from './Aslide';
+import Anav from './Anav';
 
 const Donordetails = () => {
     const [data, setdata]= useState([]);
@@ -33,8 +34,10 @@ const Donordetails = () => {
     console.log("data=>", data );
   return (
     <div>
-    <Aslide/>
-      <div class="container">
+    <Anav/>
+      <Aslide/>
+ 
+      <div class="containerd">
     <h4 class="text-center">DONOR DETAILS</h4><br/>
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">

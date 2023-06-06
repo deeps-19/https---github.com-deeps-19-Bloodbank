@@ -1,88 +1,80 @@
-import React, { useState } from 'react'
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
-import {Link, useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+// import "./addedit.css";
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 const DLogin = () => {
-    const history =useNavigate();
-    const [validated, setValidated] = useState(false);
-    const [state ,setState]=useState({
-         Username:"",
-        Password:"",
-       
-    });
-    const addContact = async(data)=>{
-    //     const response = await axios.post("http://localhost:5000/Donner",data);
-    //     if(response.status ===200 )
-    // {
+  const [state, setState] = useState({
+    Username: "",
+    Password: ""
+  
+  });
+  // const { Name, email, gender, status } = state;
+  const history =useNavigate();
+  
+  const addContact = async(data)=>{
+    const response = await axios.post("http://localhost:5000/Donner", data);
+    console.log(response);
+    if(response.status ===200 )
+    {
         alert("User Login Successfully");
-        history('/DonnerDashboard')
-    // }
-    // else{
-    //   alert("error")
-    // }
-      };
+        return(history("/DonnerDashboard"));
+    }
+    else{
+      alert("error")
+    }
+};
+  
+  
+  const handelsumit=(e)=>{
+    e.preventDefault();
+    if (!state.Username || !state.Password )
+    {
+      // toast.error("Please provide details");
+      alert("error")
+    } 
+    else {
+      addContact(state);
       
-    const handelInput=(e)=>{
-        let name = e.target.id;
-        let value = e.target.value;
-        console.log(name,value);
-        setState({...state, [name]:value});
-    };
-    const handleSubmit = (event) => {
-      const form = event.currentTarget;
-      if (form.checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
       }
-        else{
-            addContact(state);
-             
-           
-          }
-      
+  };
+  const handelInput=(e)=>{
+    let name = e.target.id;
+    let value = e.target.value;
+    console.log(name,value);
+    setState({...state, [name]:value});
+  };
   
-      setValidated(true);
-    };
+
   return (
-  
-       <div>
-       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-      
-        
-        <Form.Group as={Col} controlId="Username" >
-          <Form.Label>UserName</Form.Label>
-          <Form.Control
-            required
+    <>
+      <div style={{ margin: "100px" }}>
+        <form method="post" action="" style={{ margin: "auto", padding: "15px", maxWidth: "400px", alignContent: "center" }} onSubmit={handelsumit}>
+
+
+          <label Htmlfor="Username">Name</label>
+          <input
             type="text"
-            placeholder="UserName"
+            id="Username"
+            placeholder='Enter Name'
+            onChange={handelInput}
             value={state.Username}
-            onChange={handelInput}
-            
           />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        </Form.Group>
-        
-        <Form.Group as={Col} controlId="Password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            required
+          <label Htmlfor="Password">Password</label>
+          <input
             type="password"
-            placeholder="Password"
-            value={state.Password}
+            id="Password"
+            placeholder='Enter Password'
             onChange={handelInput}
-            
+            value={state.Password}
           />
-          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-        </Form.Group>
-       
-        
-      <Button type="submit">Login</Button>
-    </Form>
-    </div>
+         
+          <input type="submit" value="login" />
+          
+        </form>
+      </div>
+    </>
    
   )
 }

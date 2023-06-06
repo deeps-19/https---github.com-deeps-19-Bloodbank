@@ -3,6 +3,7 @@ import {Link , useNavigate} from "react-router-dom";
 
 import axios from "axios";
 import Aslide from './Aslide';
+import Anav from './Anav';
 
 const REquesthistory = () => {
     const [data, setdata]= useState([]);
@@ -31,9 +32,9 @@ const REquesthistory = () => {
     };
   return (
     <div>
-
+    <Anav/>
     <Aslide/>
-      <div class="container">
+      <div class="containerd">
     <h4 class="text-center">Blood Request History</h4><br/>
     {/* {% if message %} */}
    <h5 class="text-center" style={{color: "red"}}></h5><br/>

@@ -8,7 +8,6 @@ let Doner = mongo.Schema({
         Password:{type:String, require:true},
         Age:{type:String, require:true},
         Bloodgroup:{type:String, require:true},
-       
         Address:{type:String, require:true},
         Mobile:{type:String, require:true}
 })

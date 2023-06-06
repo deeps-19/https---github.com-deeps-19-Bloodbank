@@ -4,6 +4,7 @@ import {Link , useNavigate} from "react-router-dom";
 import axios from "axios";
 import Amain from './Amain';
 import Aslide from './Aslide';
+import Anav from './Anav';
 const Patientdetails = () => {
     const [data, setdata]= useState([]);
     useEffect(()=>{
@@ -32,8 +33,9 @@ const Patientdetails = () => {
     console.log("data=>", data );
   return (
     <div>
+        <Anav/>
         <Aslide/>
-      <div class="container">
+      <div class="containerd">
     <h4 class="text-center">PATIENT DETAILS</h4><br/>
     <table class="table table-light table-hover table-bordered table-striped">
         <thead class="bg-info">
@@ -56,12 +58,12 @@ const Patientdetails = () => {
                <td>{item.Bloodgroup}</td>
                 <td>{item.Age}</td>
                 
-                <td>{item.Disease}</td>
+                <td>{item.Deasise}</td>
                 <td>{item.Mobile}</td>
-                <td>{item.Action}</td>
+                
                 
                 <td class="text-right">
-                    <button class="btn btn-primary badge-pill" style={{width: "80px"}}><Link  style={{TextDecoration: "none",color: "white"}} to={`/update/donore/${item._id}`}>EDIT</Link> </button>
+                    <button class="btn btn-primary badge-pill" style={{width: "80px"}}><Link  style={{TextDecoration: "none",color: "white"}} to={`/update/patient/${item._id}`}>EDIT</Link> </button>
                     <button class="btn btn-danger badge-pill" style={{width: "80px"}}  onClick={()=>onDeleteUser(item._id)}><a  style={{TextDecoration: "none",color: "white"}} href="{% url 'delete-donor' t.id  %}">DELETE</a> </button>
                 </td>
             </tr>

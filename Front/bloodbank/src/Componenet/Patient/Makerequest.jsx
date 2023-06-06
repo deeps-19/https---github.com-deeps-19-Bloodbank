@@ -24,6 +24,7 @@ const Makerequest = () => {
     //   }
     const [validated, setValidated] = useState(false);
     const [state ,setState]=useState({
+        Uid:"",
         Name:"",
         Age:"",
         Reason:"",
@@ -75,6 +76,17 @@ const Makerequest = () => {
                                    {/* {% csrf_token %} */}
 
                     <div class="form-row">
+                    <Form.Control
+                                id="Name"
+                                 required
+                                    type="text"
+                                placeholder="Patient name"
+                                 value={state.Uid}
+                                 onChange={handelInput}
+                           
+            
+                                 /> 
+
                         <div class="name">Patient Name</div>
                         <div class="value">
                         {/* <Form.Control

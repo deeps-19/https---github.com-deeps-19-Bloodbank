@@ -28,14 +28,14 @@ import Donorrequest from './Componenet/Donor/Donorrequest';
 import Drequesthistory from './Componenet/Donor/Drequesthistory';
 import Dhistory from './Componenet/Donor/Dhistory';
 import Updatereq from './Componenet/Admin/Updatereq';
+import Cmain from './Componenet/Cmain';
 
 function App() {
   return (
     <div>
-      <Header/>
-      
+            
         <Routes>
-          <Route path="/home" element={<Body/>}/>
+          <Route path="/home" element={<Cmain/>}/>
           <Route path="/patient" element={<Register/>}/>
           <Route path="/Login" element={<Plogin/>}/>
           <Route path="/dashboard" element={<Main/>}/>
@@ -53,7 +53,7 @@ function App() {
           <Route path="/admin-donor" element={<Donordetails/>}/>
           <Route path="/update/donore/:id" element={<Update/>}/>
           <Route path="/admin-patient" element={<Patientdetails/>}/>
-          <Route path="/update/patient" element={<Updatepatient/>}/>
+          <Route path="/update/patient/:id" element={<Updatepatient/>}/>
           <Route path="/admin-donation" element={<Donation/>}/>
           <Route path="/admin-request" element={<Requestblood/>}/>
           <Route path="/admin-request-history" element={<REquesthistory/>}/>

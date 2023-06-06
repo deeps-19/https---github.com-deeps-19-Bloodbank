@@ -5,6 +5,8 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import React, { useState , useEffect } from 'react';
 import {Link, useNavigate,useParams} from 'react-router-dom';
 import axios from 'axios'
+import Aslide from './Aslide';
+import Anav from './Anav';
 const Updatereq = () => {
     const history =useNavigate();
     // useEffect(()=>{
@@ -82,6 +84,8 @@ const Updatereq = () => {
     };
   return (
       <div>
+        <Anav/>
+        <Aslide/>
         {/* <Main/> */}
       <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
     <div class="wrapper wrapper--w790">
